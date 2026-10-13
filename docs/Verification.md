@@ -22,8 +22,8 @@ The eight browser cases cover:
 
 ## Verified locally — 2026-10-13
 
-`npm run verify` passed: production copy, static references/metadata check and **eight browser cases**, one worker (6.3s). Original art/font/social files decode with no missing requests. The hero source naming mismatch and small-screen word spacing were corrected before delivery; mobile fighter headings are 13–14px.
+`npm run verify` passed: production copy, static references/metadata check and **eight browser cases**, one worker (6.7s). Original art/font/social files decode with no missing requests. The hero source naming mismatch and small-screen word spacing were corrected before delivery; mobile fighter headings are 13–14px.
 
-Main reviewed the hero and story in the in-app browser at desktop and390px width, plus320/390/1440 full-page captures. The composition uses the original forest gate, clear cream typography, muted gold details and readable mobile copy. The world image is original game artwork, explicitly labelled as in-development artwork. Geometry tests prove no overflow or hero-navigation collision; they do not constitute screen-reader or physical-device certification.
+Main reviewed the hero and story in the in-app browser at desktop and 390px width, plus 320/390/1440 full-page captures. The composition uses the original forest gate, clear cream typography, muted gold details and readable mobile copy. The world image is original game artwork, explicitly labelled as in-development artwork. Geometry tests prove no overflow or hero-navigation collision; they do not constitute screen-reader or physical-device certification.
 
 Screenshots live in ignored Playwright output. CI repeats the same gate before publication. Deployment and domain evidence is in [[Deployment]].
