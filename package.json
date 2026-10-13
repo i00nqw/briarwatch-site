@@ -1,0 +1,16 @@
+{
+  "name": "briarwatch-site",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "preview": "node scripts/serve.mjs",
+    "check": "node scripts/check.mjs",
+    "test": "playwright test",
+    "verify": "npm run build && npm run check && npm test"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.63.0"
+  }
+}
