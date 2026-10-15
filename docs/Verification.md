@@ -31,3 +31,5 @@ Screenshots live in ignored Playwright output. CI repeats the same gate before p
 ## AdMob seller file —2026-10-15
 
 W-004 exact seller row builds unchanged at the site root. Full local `npm run verify` passes build/static checks and8/8 browser cases (7.2s). Only public/app-ads.txt and task/deployment evidence change; no page visuals or external resources added. HTTPS publication check follows deployment.
+
+Public HTTPS200 seller-file response matches source bytes exactly after successful Pages38694450466; normal TLS/cmp verification passes. No AdMob crawler/account verification claim.

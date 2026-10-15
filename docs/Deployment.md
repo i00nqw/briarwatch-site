@@ -32,4 +32,4 @@ The existing https://backpackascendancy.com/ continues to return 200. Its reposi
 
 ## AdMob seller file —2026-10-15
 
-W-004 adds the owner's exact public seller row at `/app-ads.txt`. The static build copies it unchanged to the custom-domain root. Deployment/actual HTTPS verification are pending; file presence does not prove AdMob crawler approval. Google identifies this domain from the developer website in the app's store listing: [official setup](https://support.google.com/admob/answer/9363762?hl=en).
+W-004 adds the owner's exact public seller row at `/app-ads.txt`. The static build copies it unchanged to the custom-domain root. Source ddb57a4 is deployed by successful Pages38694450466; actual HTTPS200 `/app-ads.txt` bytes exactly match the supplied row. file presence does not prove AdMob crawler approval. Google identifies this domain from the developer website in the app's store listing: [official setup](https://support.google.com/admob/answer/9363762?hl=en).
