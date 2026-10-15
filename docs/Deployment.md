@@ -29,3 +29,7 @@ GitHub initially retained an unprovisioned certificate after DNS changed. Removi
 At 13:42 UTC, normal certificate verification passes for https://briarwatch.com/; all 20 deployed files return 200 and exactly match local `dist` SHA-256 hashes. HTTPS `www` redirects to the apex. Main reviewed the live HTTPS page in the in-app browser. An HTTP edge still returned cached 200 immediately after enabling enforcement; HTTP redirect propagation was still pending in that cached edge at 13:44 UTC, while direct HTTPS and the enabled enforcement setting were verified. No certificate bypass was used.
 
 The existing https://backpackascendancy.com/ continues to return 200. Its repository and Pages settings were not changed. The final teaser CTA opens that existing site.
+
+## AdMob seller file —2026-10-15
+
+W-004 adds the owner's exact public seller row at `/app-ads.txt`. The static build copies it unchanged to the custom-domain root. Deployment/actual HTTPS verification are pending; file presence does not prove AdMob crawler approval. Google identifies this domain from the developer website in the app's store listing: [official setup](https://support.google.com/admob/answer/9363762?hl=en).

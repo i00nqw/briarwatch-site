@@ -27,3 +27,7 @@ The eight browser cases cover:
 Main reviewed the hero and story in the in-app browser at desktop and 390px width, plus 320/390/1440 full-page captures. The composition uses the original forest gate, clear cream typography, muted gold details and readable mobile copy. The world image is original game artwork, explicitly labelled as in-development artwork. Geometry tests prove no overflow or hero-navigation collision; they do not constitute screen-reader or physical-device certification.
 
 Screenshots live in ignored Playwright output. CI repeats the same gate before publication. Deployment and domain evidence is in [[Deployment]].
+
+## AdMob seller file —2026-10-15
+
+W-004 exact seller row builds unchanged at the site root. Full local `npm run verify` passes build/static checks and8/8 browser cases (7.2s). Only public/app-ads.txt and task/deployment evidence change; no page visuals or external resources added. HTTPS publication check follows deployment.
