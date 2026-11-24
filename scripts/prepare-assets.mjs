@@ -42,16 +42,20 @@ await sharp(path.join(source, scene)).resize(512, 768, { kernel: 'nearest' })
   .webp({ quality: 88, effort: 6 }).toFile(path.join(imageDir, 'forest-arena-small.webp'));
 await recordImage('forest-arena-small.webp', scene, 'Full image reduced 2:1 with nearest-neighbor sampling; WebP quality 88. Mobile source candidate.');
 
-const worldMap = 'art/reference/connected-world-map-v2.png';
-await sharp(path.join(source, worldMap)).resize(960, 960, { kernel: 'lanczos3' })
-  .webp({ quality: 82, effort: 6 }).toFile(path.join(imageDir, 'connected-world-map.webp'));
-await recordImage('connected-world-map.webp', worldMap,
-  'Existing connected-world artwork, full image reduced to 960×960 with Lanczos3; WebP quality 82 for the secondary story scene.');
+const homeScene = 'public/art/c335-forest-home-v1.png';
+await sharp(path.join(source, homeScene)).resize(800, 1200, { kernel: 'lanczos3' })
+  .webp({ quality: 85, effort: 6 }).toFile(path.join(imageDir, 'forest-home.webp'));
+await recordImage('forest-home.webp', homeScene,
+  'Existing v0.3.45 Home screen artwork, reduced to 800×1200 with Lanczos3; WebP quality 85 for the story showcase.');
 
 const fighters = [
   ['briar-huntress', 'briar-huntress-atlas-v4', 'briar-huntress-atlas-v4'],
   ['granite-golem', 'granite-golem-base-atlas-v1', 'golem-rider/granite-golem-base-atlas-v1'],
   ['thorn-knight', 'thorn-knight-atlas-v2', 'thorn-knight-atlas-v2'],
+  ['star-arcanist', 'star-arcanist-atlas-v2', 'star-arcanist-atlas-v2'],
+  ['blightmother', 'c350-the-blightmother-atlas-v1', 'c350/c350-the-blightmother-atlas-v1'],
+  ['frostvein-wyrm', 'c350-the-frostvein-wyrm-atlas-v1', 'c350/c350-the-frostvein-wyrm-atlas-v1'],
+  ['ashen-sovereign', 'c350-the-ashen-sovereign-atlas-v1', 'c350/c350-the-ashen-sovereign-atlas-v1'],
 ];
 for (const [name, atlasName, mappingName] of fighters) {
   const imagePath = `public/art/${atlasName}.png`;

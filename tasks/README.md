@@ -7,3 +7,4 @@
 | [W-003 Verification](clusters/W-003-teaser-verification.md) | Verification reviewer | done |
 
 | [W-004 AdMob publisher](clusters/W-004-admob-publisher.md) | Main | done |
+| [W-005 Privacy policy and v0.3.45 alignment](clusters/W-005-privacy-and-v045-update.md) | Main | done |

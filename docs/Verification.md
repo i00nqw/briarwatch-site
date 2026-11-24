@@ -33,3 +33,9 @@ Screenshots live in ignored Playwright output. CI repeats the same gate before p
 W-004 exact seller row builds unchanged at the site root. Full local `npm run verify` passes build/static checks and8/8 browser cases (7.2s). Only public/app-ads.txt and task/deployment evidence change; no page visuals or external resources added. HTTPS publication check follows deployment.
 
 Public HTTPS200 seller-file response matches source bytes exactly after successful Pages38694450466; normal TLS/cmp verification passes. No AdMob crawler/account verification claim.
+
+## Privacy policy and v0.3.45 alignment — 2026-11-24
+
+W-005 adds the Google Play Store and Apple App Store Privacy Policy at `public/privacy/index.html` (`/privacy/` and `/privacy`), updates homepage copy and curated original v0.3.45 artwork (`forest-home.webp`, `star-arcanist.png`, `blightmother.png`, `frostvein-wyrm.png`, `ashen-sovereign.png`), updates `sitemap.xml`, and extends `scripts/check.mjs` and `tests/site.spec.mjs` to validate both `/` and `/privacy/`.
+
+`npm run verify` passes: production copy, static references/anchors/privacy disclosures/metadata check, and **nine browser cases**, one worker (9.2s), covering `/`, `/privacy`, and `/privacy/` at 320px, 390px, and 1440px viewports, keyboard navigation, reduced motion, and JavaScript disabled. Full-page rendered captures of both `/` and `/privacy/` were visually reviewed at desktop and mobile widths. Live HTTPS publication checks follow deployment.

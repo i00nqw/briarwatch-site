@@ -19,6 +19,7 @@
 :root {
   color-scheme: dark;
   --ink: #111b16;
+  --surface: #16221b;
   --paper: #eee8d9;
   --muted: #c0c4b6;
   --gold: #d8bc7b;
@@ -60,7 +61,9 @@ p,
 h1,
 h2,
 h3,
-figure {
+figure,
+dl,
+dd {
   margin: 0;
 }
 svg {
@@ -117,6 +120,10 @@ svg {
   font-size: 12px;
   letter-spacing: 0.06em;
 }
+.site-header--static {
+  position: relative;
+  background: linear-gradient(#09140ef0, #111b16);
+}
 .brand {
   display: flex;
   align-items: center;
@@ -124,6 +131,7 @@ svg {
   font-family: var(--display);
   font-size: 20px;
   letter-spacing: 0.09em;
+  flex-shrink: 0;
 }
 .brand img {
   width: 36px;
@@ -131,14 +139,18 @@ svg {
 }
 .site-header nav {
   display: flex;
-  gap: 36px;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px 32px;
 }
 .site-header nav a {
-  padding-block: 12px;
+  padding-block: 10px;
   color: #e0e3d6;
   transition: color 0.2s;
+  white-space: nowrap;
 }
-.site-header nav a:hover {
+.site-header nav a:hover,
+.site-header nav a[aria-current="page"] {
   color: var(--gold);
 }
 .development {
@@ -148,6 +160,7 @@ svg {
   font-size: 11px;
   text-transform: uppercase;
   letter-spacing: 0.12em;
+  flex-shrink: 0;
 }
 .development > span {
   width: 5px;
@@ -165,7 +178,7 @@ svg {
   place-items: center;
   overflow: hidden;
   text-align: center;
-  padding: 170px 24px 100px;
+  padding: 170px 24px 105px;
   background: #16291d;
 }
 .hero-art {
@@ -254,7 +267,7 @@ svg {
   display: none;
 }
 .arrival {
-  margin-top: 40px;
+  margin-top: 38px;
 }
 .arrival .eyebrow {
   font-size: 10px;
@@ -285,7 +298,7 @@ svg {
 }
 .explore {
   position: absolute;
-  bottom: 32px;
+  bottom: 28px;
   left: 50%;
   translate: -50% 0;
   display: flex;
@@ -394,25 +407,26 @@ svg {
 }
 .story {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1.05fr 0.95fr;
   gap: 80px;
   align-items: center;
-  padding-block: 112px 70px;
+  padding-block: 112px 72px;
 }
 .section-number {
-  margin-right: 18px;
+  margin-right: 14px;
   color: #a7b09c;
   font-weight: 400;
   letter-spacing: 0;
 }
 .story h2,
 .roster h2,
+.siege h2,
 .studio h2 {
   font-family: var(--display);
   font-weight: 600;
   font-size: clamp(27px, 3vw, 40px);
   line-height: 1.35;
-  margin-top: 25px;
+  margin-top: 22px;
   letter-spacing: -0.025em;
 }
 .story p:not(.eyebrow) {
@@ -432,7 +446,7 @@ svg {
   gap: 8px 17px;
   font-family: var(--utility);
   font-size: 10px;
-  letter-spacing: 0.02em;
+  letter-spacing: 0.03em;
   margin-top: 30px;
   padding-top: 23px;
   border-top: 1px solid var(--line);
@@ -447,7 +461,7 @@ svg {
   position: relative;
   padding: 12px;
   border: 1px solid var(--line);
-  background: #1d2a20;
+  background: #17231c;
 }
 .world-art::before {
   content: "";
@@ -459,14 +473,17 @@ svg {
 .world-window {
   aspect-ratio: 1;
   overflow: hidden;
-  background: #213924;
+  background: #14221a;
+}
+.world-window--portrait {
+  aspect-ratio: 4 / 5;
 }
 .world-window img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: center 42%;
   transition: transform 1s ease;
-  filter: saturate(0.83);
 }
 .world-art:hover img {
   transform: scale(1.025);
@@ -485,28 +502,77 @@ svg {
 .world-art figcaption span:first-child {
   color: var(--gold);
 }
+.pillars {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 32px;
+  padding: 46px 0 52px;
+  border-block: 1px solid var(--line);
+}
+.pillar {
+  min-width: 0;
+}
+.pillar h3 {
+  font-family: var(--display);
+  font-size: 18px;
+  font-weight: 600;
+  color: #ebe2c8;
+  margin-top: 12px;
+  line-height: 1.35;
+}
+.pillar p:not(.eyebrow) {
+  color: #adb8a5;
+  font-size: 18px;
+  line-height: 1.55;
+  margin-top: 10px;
+}
 .roster {
-  padding: 75px 0 100px;
+  padding: 84px 0 88px;
+}
+.siege {
+  border-top: 1px solid var(--line);
+  padding: 84px 0 92px;
 }
 .roster-heading {
   text-align: center;
 }
-.roster h2 {
-  margin-top: 14px;
-  font-size: 30px;
+.roster h2,
+.siege h2 {
+  margin-top: 16px;
+  font-size: clamp(25px, 2.7vw, 34px);
+  text-wrap: balance;
+}
+.section-subtitle {
+  max-width: 620px;
+  margin: 16px auto 0;
+  color: var(--muted);
+  font-size: 20px;
+  line-height: 1.55;
+  text-wrap: balance;
+}
+.section-subtitle--wide {
+  max-width: 740px;
+}
+.section-subtitle strong {
+  color: #ebe5d2;
+  font-weight: 600;
 }
 .fighters {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 40px;
-  margin-top: 38px;
+  margin-top: 40px;
+}
+.fighters--four {
+  grid-template-columns: repeat(4, 1fr);
+  gap: 32px;
 }
 .fighter {
   text-align: center;
   min-width: 0;
 }
 .fighter-stage {
-  height: 240px;
+  height: 230px;
   display: flex;
   align-items: flex-end;
   justify-content: center;
@@ -520,10 +586,19 @@ svg {
   background: radial-gradient(ellipse at 50% 70%, #718c413b, transparent 60%);
   pointer-events: none;
 }
+.fighter--blight .fighter-stage::before {
+  background: radial-gradient(ellipse at 50% 68%, #4d9a5442, transparent 62%);
+}
+.fighter--frost .fighter-stage::before {
+  background: radial-gradient(ellipse at 50% 68%, #4d8aa844, transparent 62%);
+}
+.fighter--ashen .fighter-stage::before {
+  background: radial-gradient(ellipse at 50% 68%, #b35d2d45, transparent 62%);
+}
 .fighter-stage::after {
   content: "";
   position: absolute;
-  width: 125px;
+  width: 120px;
   height: 16px;
   bottom: 18px;
   left: 50%;
@@ -535,11 +610,14 @@ svg {
 .fighter-stage img {
   position: relative;
   z-index: 1;
-  max-height: 205px;
+  max-height: 196px;
   width: auto;
   image-rendering: pixelated;
   filter: drop-shadow(0 7px 5px #0005);
   transition: translate 0.35s;
+}
+.fighter--boss .fighter-stage img {
+  max-height: 188px;
 }
 .fighter:hover .fighter-stage img {
   translate: 0 -5px;
@@ -552,8 +630,30 @@ svg {
 }
 .fighter p {
   color: #a8b5a0;
-  font-size: 19px;
-  margin-top: 5px;
+  font-size: 18px;
+  margin-top: 6px;
+}
+.gauntlet {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px 18px;
+  margin-top: 48px;
+  padding-top: 26px;
+  border-top: 1px solid var(--line);
+  font-family: var(--utility);
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  color: #b7c2ae;
+}
+.gauntlet span + span::before {
+  content: "·";
+  margin-right: 18px;
+  color: var(--gold);
+}
+.gauntlet span:last-child {
+  color: var(--gold);
+  font-weight: 600;
 }
 .studio {
   position: relative;
@@ -609,10 +709,10 @@ svg {
   padding: 18px 24px;
   border: 1px solid #d8bc7b73;
   background: #d8bc7b0b;
-  display: flex;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 25px;
+  gap: 20px;
   font-family: var(--utility);
   font-size: 12px;
   line-height: 1.5;
@@ -640,7 +740,7 @@ svg {
   gap: 24px;
   padding: 34px 0 40px;
   font-family: var(--utility);
-  font-size: 10px;
+  font-size: 11px;
   color: #9ba98f;
 }
 .footer-wordmark {
@@ -649,12 +749,157 @@ svg {
   color: #d4ceb6;
   letter-spacing: 0.08em;
 }
+.footer-meta a {
+  color: #cfd6c4;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  white-space: nowrap;
+  transition: color 0.2s;
+}
+.footer-meta a:hover,
+.footer-meta a[aria-current="page"] {
+  color: var(--gold);
+}
 .site-footer > a:last-child {
   padding: 8px 0;
 }
 .site-footer > a:last-child span {
   margin-left: 9px;
 }
+
+/* Privacy policy document */
+.policy-page {
+  font-family: var(--utility);
+  font-size: 16px;
+  line-height: 1.7;
+}
+.policy-main {
+  padding: 64px 0 88px;
+}
+.policy-article {
+  max-width: 780px;
+  margin-inline: auto;
+}
+.policy-hero {
+  padding-bottom: 32px;
+  border-bottom: 1px solid var(--line);
+}
+.policy-hero h1 {
+  font-family: var(--display);
+  font-weight: 600;
+  font-size: clamp(32px, 4.4vw, 52px);
+  line-height: 1.15;
+  letter-spacing: 0.02em;
+  color: #f1e8ce;
+  margin-top: 14px;
+}
+.policy-lead {
+  font-family: var(--body);
+  font-size: 22px;
+  line-height: 1.55;
+  color: #d5d8ca;
+  margin-top: 18px;
+}
+.policy-lead strong {
+  color: var(--paper);
+}
+.policy-meta {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px 28px;
+  margin-top: 28px;
+  padding-top: 22px;
+  border-top: 1px solid var(--line);
+  font-size: 14px;
+}
+.policy-meta dt {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+.policy-meta dd {
+  margin-top: 4px;
+  color: #e4e1d4;
+  overflow-wrap: anywhere;
+}
+.policy-summary {
+  margin-top: 34px;
+  padding: 28px 32px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+}
+.policy-summary h2 {
+  font-family: var(--display);
+  font-size: 22px;
+  font-weight: 600;
+  color: #f0e4c6;
+  margin-bottom: 14px;
+}
+.policy-section {
+  margin-top: 42px;
+}
+.policy-section h2 {
+  font-family: var(--display);
+  font-size: 23px;
+  font-weight: 600;
+  line-height: 1.3;
+  color: #ebdcb8;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #b8a57924;
+  margin-bottom: 16px;
+}
+.policy-section h3 {
+  font-family: var(--utility);
+  font-size: 16px;
+  font-weight: 600;
+  color: #f3eedf;
+  margin: 24px 0 10px;
+}
+.policy-article p + p {
+  margin-top: 14px;
+}
+.policy-article p,
+.policy-article li {
+  color: #c8cec0;
+  overflow-wrap: anywhere;
+}
+.policy-article strong {
+  color: #f0ecdf;
+  font-weight: 600;
+}
+.policy-article ul {
+  margin: 12px 0 16px;
+  padding-left: 22px;
+}
+.policy-article li + li {
+  margin-top: 9px;
+}
+.policy-article code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 0.9em;
+  background: #1a2820;
+  border: 1px solid #b8a5792b;
+  padding: 2px 6px;
+  color: #ebdcb8;
+  overflow-wrap: anywhere;
+}
+.policy-article a:not(.gold-button) {
+  color: var(--gold);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  overflow-wrap: anywhere;
+}
+.policy-article a:not(.gold-button):hover {
+  color: #f5e2b0;
+}
+.policy-return {
+  margin-top: 52px;
+  padding-top: 32px;
+  border-top: 1px solid var(--line);
+}
+
 @media (min-width: 1800px) {
   .hero-art {
     background-size: 100% auto;
@@ -669,7 +914,7 @@ svg {
     padding: 22px 30px;
   }
   .site-header nav {
-    gap: 24px;
+    gap: 8px 22px;
   }
   .section-wrap {
     width: calc(100% - 64px);
@@ -690,6 +935,14 @@ svg {
   .game-notes span + span::before {
     margin-right: 12px;
   }
+  .pillars {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 28px 34px;
+  }
+  .fighters--four {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 32px 24px;
+  }
   .other-game {
     gap: 25px;
   }
@@ -707,21 +960,27 @@ svg {
 }
 @media (max-width: 700px) {
   .site-header {
-    padding: 16px 22px;
-    gap: 14px;
+    padding: 16px 20px;
+    gap: 10px 14px;
     flex-wrap: wrap;
+    justify-content: center;
   }
   .brand {
     font-size: 16px;
     gap: 7px;
   }
   .brand img {
-    width: 29px;
-    height: 29px;
+    width: 28px;
+    height: 28px;
   }
   .site-header nav {
-    gap: 20px;
+    width: 100%;
+    order: 2;
+    gap: 4px 18px;
     font-size: 11px;
+  }
+  .site-header nav a {
+    padding-block: 6px;
   }
   .development {
     width: 100%;
@@ -735,10 +994,10 @@ svg {
     width: calc(100% - 44px);
   }
   .hero {
-    min-height: 750px;
+    min-height: 780px;
     height: 100svh;
-    max-height: 900px;
-    padding: 190px 18px 130px;
+    max-height: 920px;
+    padding: 195px 18px 125px;
   }
   .hero-art {
     background-image: url("./assets/images/forest-arena-small.webp");
@@ -764,16 +1023,16 @@ svg {
   .hero-eyebrow {
     font-size: 9px;
     letter-spacing: 0.24em;
-    margin-bottom: 20px;
+    margin-bottom: 18px;
   }
   .title-rule {
-    margin-top: 17px;
-    margin-bottom: 21px;
+    margin-top: 15px;
+    margin-bottom: 18px;
     max-width: 180px;
     gap: 13px;
   }
   .hero-promise {
-    font-size: 32px;
+    font-size: 31px;
     line-height: 1.18;
   }
   .mobile-break {
@@ -782,17 +1041,17 @@ svg {
   .hero-description {
     font-size: 19px;
     line-height: 1.5;
-    max-width: 320px;
-    margin: 20px auto 0;
+    max-width: 330px;
+    margin: 18px auto 0;
   }
   .hero-description br {
     display: none;
   }
   .arrival {
-    margin-top: 32px;
+    margin-top: 28px;
   }
   .arrival ul {
-    gap: 25px;
+    gap: 24px;
     font-size: 12px;
   }
   .arrival svg {
@@ -803,7 +1062,7 @@ svg {
     display: none;
   }
   .explore {
-    bottom: 28px;
+    bottom: 24px;
     font-size: 9px;
   }
   .hero::after {
@@ -813,67 +1072,98 @@ svg {
     grid-template-columns: 1fr;
     gap: 38px;
     padding-top: 65px;
-    padding-bottom: 20px;
+    padding-bottom: 42px;
   }
   .story h2 {
     font-size: 31px;
     margin-top: 20px;
   }
   .story p.lead {
-    font-size: 24px;
+    font-size: 23px;
   }
   .story p:not(.eyebrow) {
-    font-size: 21px;
+    font-size: 20px;
   }
   .game-notes {
     font-size: 10px;
     gap: 8px 12px;
   }
   .world-art {
-    width: min(100%, 480px);
+    width: min(100%, 440px);
     margin-inline: auto;
   }
   .world-art figcaption {
     font-size: 9px;
     letter-spacing: 0.035em;
   }
-  .roster {
-    padding: 65px 0;
+  .pillars {
+    grid-template-columns: 1fr;
+    gap: 28px;
+    padding: 40px 0 44px;
   }
-  .roster h2 {
+  .roster,
+  .siege {
+    padding: 64px 0;
+  }
+  .roster h2,
+  .siege h2 {
     font-size: 25px;
   }
-  .roster .eyebrow {
+  .roster .eyebrow,
+  .siege .eyebrow {
     font-size: 9px;
   }
+  .section-subtitle {
+    font-size: 19px;
+  }
   .fighters {
-    gap: 12px;
-    margin-top: 25px;
+    gap: 16px;
+    margin-top: 28px;
+  }
+  .fighters--four {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px 16px;
+  }
+  .fighters--bosses {
+    grid-template-columns: 1fr;
+    gap: 32px;
   }
   .fighter-stage {
-    height: 160px;
+    height: 164px;
     padding-bottom: 20px;
   }
   .fighter-stage img {
     max-width: 100%;
-    max-height: 130px;
+    max-height: 136px;
     width: auto;
     height: auto;
   }
+  .fighter--boss .fighter-stage {
+    height: 176px;
+  }
+  .fighter--boss .fighter-stage img {
+    max-height: 148px;
+  }
   .fighter-stage::after {
-    width: 80px;
+    width: 82px;
     height: 12px;
   }
   .fighter h3 {
-    font-size: 14px;
-    line-height: 1.5;
-    max-width: 110px;
-    margin: auto;
+    font-size: 15px;
+    line-height: 1.4;
   }
   .fighter p {
     font-size: 16px;
     line-height: 1.35;
-    margin-top: 8px;
+    margin-top: 6px;
+  }
+  .gauntlet {
+    gap: 8px 12px;
+    font-size: 10px;
+    margin-top: 36px;
+  }
+  .gauntlet span + span::before {
+    margin-right: 12px;
   }
   .studio {
     padding: 50px 0 60px;
@@ -915,49 +1205,68 @@ svg {
   .footer-wordmark {
     font-size: 17px;
   }
+  .policy-main {
+    padding: 40px 0 60px;
+  }
+  .policy-lead {
+    font-size: 20px;
+  }
+  .policy-meta {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+  .policy-summary {
+    padding: 22px 20px;
+  }
+  .policy-section h2 {
+    font-size: 20px;
+  }
 }
 @media (max-width: 360px) {
   .hero {
-    min-height: 720px;
+    min-height: 760px;
+    padding: 185px 16px 115px;
   }
   .site-header {
-    padding-inline: 17px;
+    padding-inline: 14px;
   }
   .site-header nav {
-    gap: 15px;
+    gap: 4px 13px;
   }
   .brand {
     font-size: 14px;
   }
   .hero-promise {
-    font-size: 29px;
+    font-size: 28px;
   }
   .hero-description {
-    font-size: 18px;
+    font-size: 17px;
   }
   .section-wrap {
     width: calc(100% - 36px);
   }
-  .game-notes span + span::before {
+  .game-notes span + span::before,
+  .gauntlet span + span::before {
     display: none;
   }
-  .game-notes {
-    gap: 8px 15px;
+  .game-notes,
+  .gauntlet {
+    gap: 8px 14px;
   }
   .fighter-stage {
-    height: 140px;
+    height: 144px;
   }
   .fighter-stage img {
-    max-height: 108px;
+    max-height: 114px;
   }
   .fighter h3 {
-    font-size: 13px;
+    font-size: 14px;
   }
   .fighter p {
     font-size: 15px;
   }
   .story h2 {
-    font-size: 28px;
+    font-size: 27px;
   }
   .other-game h2 {
     font-size: 22px;

@@ -4,6 +4,15 @@ import { relative, resolve, sep } from "node:path";
 
 const root = resolve("dist");
 const production = new URL("https://briarwatch.com/");
+const privacyUrl = new URL("privacy/", production);
+const allowedExternalLinks = new Set([
+  "https://backpackascendancy.com/",
+  "https://policies.google.com/privacy",
+  "https://policies.google.com/technologies/partner-sites",
+  "https://myadcenter.google.com/",
+  "https://www.apple.com/legal/privacy/",
+  "mailto:ioniuncu@gmail.com",
+]);
 const failures = [];
 const check = (condition, message) => {
   if (!condition) failures.push(message);
@@ -32,7 +41,7 @@ async function localReference(value, source, { asset = false } = {}) {
   const url = new URL(value, new URL(relative(root, source), production));
   if (url.origin !== production.origin) {
     check(
-      !asset && url.href === "https://backpackascendancy.com/",
+      !asset && allowedExternalLinks.has(url.href),
       `${relative(root, source)} has an unexpected external ${asset ? "asset" : "link"}: ${value}`,
     );
     return;
@@ -45,10 +54,22 @@ async function localReference(value, source, { asset = false } = {}) {
   if (target !== root && !target.startsWith(root + sep)) return;
   try {
     const info = await stat(target);
-    const bytes = await readFile(
-      info.isDirectory() ? resolve(target, "index.html") : target,
-    );
+    const resolvedFile = info.isDirectory()
+      ? resolve(target, "index.html")
+      : target;
+    const bytes = await readFile(resolvedFile);
     check(bytes.length > 0, `Empty referenced file: ${value}`);
+    if (url.hash && resolvedFile.endsWith(".html")) {
+      const targetHtml = bytes.toString("utf8");
+      const hashId = decodeURIComponent(url.hash.slice(1));
+      const targetIds = [...targetHtml.matchAll(/\bid="([^"]+)"/g)].map(
+        (match) => match[1],
+      );
+      check(
+        targetIds.includes(hashId),
+        `${relative(root, source)} has a broken cross-page anchor: ${value}`,
+      );
+    }
   } catch {
     failures.push(
       `Missing production reference in ${relative(root, source)}: ${value}`,
@@ -143,6 +164,10 @@ try {
     canonical.length === 1 && canonical[0].href === production.href,
     "Canonical URL must use the production domain",
   );
+  check(
+    html.includes('href="./privacy/"'),
+    "Homepage must link to the Privacy Policy route",
+  );
   const jsonLd = html.match(
     /<script\b[^>]*type="application\/ld\+json"[^>]*>([\s\S]*?)<\/script>/,
   );
@@ -156,6 +181,31 @@ try {
       "Structured game identity is incorrect",
     );
   }
+  const privacyHtml = await readFile(
+    resolve(root, "privacy/index.html"),
+    "utf8",
+  );
+  const privacyCanonical = [...privacyHtml.matchAll(/<link\b[^>]*>/gi)]
+    .map((match) => attributesOf(match[0]))
+    .filter((attributes) => attributes.rel === "canonical");
+  check(
+    privacyCanonical.length === 1 &&
+      privacyCanonical[0].href === privacyUrl.href,
+    "Privacy canonical URL must be https://briarwatch.com/privacy/",
+  );
+  for (const required of [
+    "Google Analytics",
+    "Google AdMob",
+    "App Tracking Transparency",
+    "User Messaging Platform",
+    "ioniuncu@gmail.com",
+    "Mio/i00nqw Game Studios",
+  ]) {
+    check(
+      privacyHtml.includes(required),
+      `Privacy policy is missing required disclosure: ${required}`,
+    );
+  }
   check(
     (await readFile(resolve(root, "CNAME"), "utf8")).trim() ===
       production.hostname,
@@ -167,11 +217,14 @@ try {
     ),
     "Robots sitemap must use the production domain",
   );
+  const sitemap = await readFile(resolve(root, "sitemap.xml"), "utf8");
   check(
-    (await readFile(resolve(root, "sitemap.xml"), "utf8")).includes(
-      `<loc>${production.href}</loc>`,
-    ),
+    sitemap.includes(`<loc>${production.href}</loc>`),
     "Sitemap must list the production homepage",
+  );
+  check(
+    sitemap.includes(`<loc>${privacyUrl.href}</loc>`),
+    "Sitemap must list the production privacy policy URL",
   );
   check(
     (await readFile(resolve(root, "404.html"), "utf8")).includes("noindex"),
@@ -186,6 +239,6 @@ if (failures.length) {
   process.exitCode = 1;
 } else {
   console.log(
-    "Static production check passed: current build, local references, anchors, metadata and domain files.",
+    "Static production check passed: current build, local references, anchors, privacy disclosures, metadata and domain files.",
   );
 }
