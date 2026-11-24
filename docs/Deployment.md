@@ -33,3 +33,7 @@ The existing https://backpackascendancy.com/ continues to return 200. Its reposi
 ## AdMob seller file —2026-10-15
 
 W-004 adds the owner's exact public seller row at `/app-ads.txt`. The static build copies it unchanged to the custom-domain root. Source ddb57a4 is deployed by successful Pages38694450466; actual HTTPS200 `/app-ads.txt` bytes exactly match the supplied row. file presence does not prove AdMob crawler approval. Google identifies this domain from the developer website in the app's store listing: [official setup](https://support.google.com/admob/answer/9363762?hl=en).
+
+## Privacy policy and v0.3.45 update — 2026-11-24
+
+W-005 publishes the Google Play Store and Apple App Store Privacy Policy at `https://briarwatch.com/privacy` (`public/privacy/index.html`, canonical `https://briarwatch.com/privacy/`) and aligns homepage copy and curated original artwork with Briarwatch v0.3.45. Source `4c8f75d` is verified and deployed by [run 45430718248](https://github.com/i00nqw/briarwatch-site/actions/runs/45430718248) (9/9 Playwright cases + static checks passed). Live HTTPS checks confirm `https://briarwatch.com/privacy` resolves cleanly to `https://briarwatch.com/privacy/` (HTTP 200) and all updated HTML, CSS, sitemap, `/app-ads.txt`, and curated v0.3.45 artwork files return HTTP 200 with exact byte parity against `dist/`.
